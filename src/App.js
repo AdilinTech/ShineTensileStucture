@@ -1,23 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Home from "./pages/home";
+import About from "./pages/about";
+import { useState } from "react";
+import PrivateRoute from "./privateRoute/PrivateRoute";
+import LoginPage from "./component/LoginPage";
+import Contact from "./pages/contact";
+import  "../src/assets/css/style.css"
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <BrowserRouter>
+        <Routes>
+          {!isAuthenticated ? (
+            <>
+              <Route path="/login" element={<LoginPage />} />
+            </>
+          ) : (
+            <>
+              <Route
+                path=""
+                element={<PrivateRoute isAuthenticated={isAuthenticated} />}
+              >
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} />
+              </Route>
+            </>
+          )}
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
