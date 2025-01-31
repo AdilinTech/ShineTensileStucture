@@ -1,14 +1,13 @@
-import React from 'react'
-import { Navigate } from 'react-router-dom'
-import Home from '../pages/home';
-import About from '../pages/about';
-import DashBoardPage from '../pages/DashboardPage';
+import { Navigate, Outlet } from "react-router-dom";
 
+const PrivateRoute = ({ isAuthenticated }) => {
+  if (!isAuthenticated) {
+    // Redirect to login if not authenticated
+    return <Navigate to="/login" />;
+  }
 
-const PrivateRoute = ({ componet: componet, isAuthenticated, ...rest }) => {
-    
-   
-    return isAuthenticated ? <DashBoardPage />  : <Navigate to="/login" />;
-}
+  // If authenticated, render the child routes
+  return <Outlet />;
+};
 
-export default PrivateRoute
+export default PrivateRoute;

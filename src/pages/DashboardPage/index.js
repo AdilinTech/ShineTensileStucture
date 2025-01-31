@@ -6,13 +6,7 @@ import Footer from '../../common/footer/Footer'
 const DashBoardPage = () => {
   return (
     <div>
-        <Header />
-        <div>
-
-        <Outlet></Outlet>
-
-        </div>
-        <Footer />
+      
     </div>
   )
 }

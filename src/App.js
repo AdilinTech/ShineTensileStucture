@@ -1,35 +1,39 @@
-import logo from "./logo.svg";
-import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { useState } from "react";
+
+// Import pages
 import Home from "./pages/home";
 import About from "./pages/about";
-import { useState } from "react";
-import PrivateRoute from "./privateRoute/PrivateRoute";
-import LoginPage from "./component/LoginPage";
 import Contact from "./pages/contact";
-import  "../src/assets/css/style.css"
+import Project from "./pages/project";
+
+// Import styles
+import "./App.css";
+import "../src/assets/css/style.css";
+
+// Import PrivateRoute
+import PrivateRoute from "./privateRoute/PrivateRoute";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(true);
+
   return (
     <div>
       <BrowserRouter>
         <Routes>
           {!isAuthenticated ? (
             <>
-              <Route path="/login" element={<LoginPage />} />
+              {/* If not authenticated, handle login page */}
+              {/* <Route path="/login" element={<LoginPage />} /> */}
             </>
           ) : (
-            <>
-              <Route
-                path=""
-                element={<PrivateRoute isAuthenticated={isAuthenticated} />}
-              >
-                <Route path="/" element={<Home />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/contact" element={<Contact />} />
-              </Route>
-            </>
+            <Route element={<PrivateRoute isAuthenticated={isAuthenticated} />}>
+              {/* Authenticated Routes */}
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/project" element={<Project />} />
+            </Route>
           )}
         </Routes>
       </BrowserRouter>
